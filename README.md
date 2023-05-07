@@ -10,6 +10,6 @@
 
 3. 打开项目目录输入pip install -r `requirements.txt`
 
-4. 即可
+4. 自行在代码修改 监控目录 `monitor_directories` 模糊文件格式 `file_patterns`  打印机名称 `printers`目录
 
-
+5. 即可
