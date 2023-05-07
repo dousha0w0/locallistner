@@ -1,3 +1,4 @@
+import datetime
 import sys
 
 import PyQt5
@@ -42,6 +43,14 @@ class FileHandler(FileSystemEventHandler):
     def write_log(self, file_path):
         log_message = f'[{time.strftime("%Y-%m-%d %H:%M:%S")}] Printed and moved file: {file_path}\n'
         self.log_signal.emit(log_message)
+        filename = datetime.datetime.today().now().strftime('%Y-%m-%d') + '.txt'
+        if not os.path.isfile(filename):
+            with open(filename, 'w') as f:
+                f.write(f'{log_message}\n')
+        else:
+            print('file exist')
+            with open(filename, 'a') as f:
+                f.write(f'{log_message}\n')
 
 
 class MonitorThread(QThread):
@@ -57,8 +66,8 @@ class MonitorThread(QThread):
 
 def monitor_function(log_signal):
     # 配置监控目录、文件模式、打印机名称
-    monitor_directories = ["E:\\新建文件夹\\Monitor1", "E:\\新建文件夹\\Monitor2"]
-    file_patterns = [["*.pdf", "*.docx"], ["*.jpg", "*.png"]]
+    monitor_directories = ["E:\\新建文件夹\\Microsoft Print to PDF", "E:\\新建文件夹\\Monitor2"]
+    file_patterns = [[".pdf", ".docx", ".jpg", ".png"]]
     printers = ["Microsoft Print to PDF"]
 
     # 配置移动目录
