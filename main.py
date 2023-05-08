@@ -2,6 +2,7 @@ import datetime
 import sys
 
 import PyQt5
+import yaml
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTextEdit, QPushButton, QWidget
 from PyQt5.QtCore import QThread, pyqtSlot
 import os
@@ -66,12 +67,17 @@ class MonitorThread(QThread):
 
 def monitor_function(log_signal):
     # 配置监控目录、文件模式、打印机名称
-    monitor_directories = ["E:\\新建文件夹\\Microsoft Print to PDF", "E:\\新建文件夹\\Monitor2"]
-    file_patterns = [[".pdf", ".docx", ".jpg", ".png"]]
-    printers = ["Microsoft Print to PDF"]
-
-    # 配置移动目录
-    move_directory = "E:\\新建文件夹\\Processed"
+    # 从配置文件中读取directories
+    with open('config.yaml', 'r', encoding='utf-8') as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+    # 监控目录
+    monitor_directories = config['directories']
+    # 文件过滤
+    file_patterns = config['file_patterns']
+    # 打印机名称
+    printers = config['printers']
+    # 移动目录
+    move_directory = config['move_directory']
 
     # 确保移动目录存在
     if not os.path.exists(move_directory):

@@ -1,0 +1,4 @@
+monitor_directories: [ "D:\\codes\\python\\locallistner\\test\\listener1","D:\\codes\\python\\locallistner\\test\\listener1" ]
+file_patterns: [ ".pdf", ".docx", ".xlsx" ]
+printers: [ "Microsoft Print to PDF", "printer2" ]
+move_directory: "D:\\codes\\python\\locallistner\\test\\listener1\\moved"
